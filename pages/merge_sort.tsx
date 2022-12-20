@@ -61,6 +61,8 @@ export default function MergeSort(){
         merge(arr, low, middle, high);
     }
 
+
+    // Fix - first index is undefined.
     console.log(arr);
     mergeSort(arr, 0, arr.length);
     console.log(arr);
