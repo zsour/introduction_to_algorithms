@@ -9,6 +9,7 @@
     height: 100vh;
     position: relative;
     overflow: hidden;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .content-background{
@@ -32,4 +33,70 @@
     left: 50%;
     box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
+}
+
+.array-visualizer-container{
+    width: auto;
+    min-width: 474px;
+    height: 200px;
+    display: inline-block;
+    position: relative;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+}
+
+.array-visualizer-array{
+    min-width: 474px;
+    width: auto;
+    height: 80px;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    /* background-image: url('../public/images/sumaid-pal-singh-bakshi-thWNhkr2ZjU-unsplash.jpg');
+    background-size: cover;
+    background-position: top; */
+    border-radius: 5px;
+}
+
+.array-cell{
+    width: 50px;
+    height: 50px;
+    box-shadow: 2px 2px 4px 2px rgba(107, 107, 107, 0.25);
+    background-color: rgb(139, 50, 255);
+    position: absolute;
+    display: inline-block;
+    top: 15px;
+    vertical-align: top;
+    transition: left 0.4s, top 0.4s;
+    border-radius: 5px;
+}
+
+.array-cell-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: white;
+}
+
+.transition-button{
+    width: 150px;
+    height: 40px;
+    background-color: rgb(139, 50, 255);
+    position: relative;
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 45%;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    cursor: pointer;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
 }
