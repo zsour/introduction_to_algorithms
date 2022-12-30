@@ -34,7 +34,7 @@ export default function BucketSort(){
     }
 
     console.time("Bucket sort");
-    let sorted = bucketSort(arr, 5);
+    let sorted = bucketSort(arr, 10);
     console.timeEnd("Bucket sort");
     console.log(sorted);
     
