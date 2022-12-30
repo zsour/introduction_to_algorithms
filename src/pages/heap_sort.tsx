@@ -38,8 +38,9 @@ export default function HeapSort(){
         }
     }
     
-    console.log(arr);
+    console.time("Heap sort");
     heapSort(arr);
+    console.timeEnd("Heap sort");
     console.log(arr);
     
 

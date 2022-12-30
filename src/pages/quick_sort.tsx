@@ -36,8 +36,9 @@ export default function QuickSort(){
         quickSort(arr, pivot, right);
     }
 
-    console.log(arr);
+    console.time("Quick sort");
     quickSort(arr, 0, arr.length -1);
+    console.timeEnd("Quick sort");
     console.log(arr);
     
 
