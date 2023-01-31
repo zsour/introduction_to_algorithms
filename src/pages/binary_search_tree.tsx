@@ -24,11 +24,13 @@ class BinarySearchTree implements IBinarySearchTree{
         this.root = null;
     }
 
-    findPredecessor(node: IBinaryNode): IBinaryNode{
+    findPredecessor(node: IBinaryNode | null): IBinaryNode | null{
+            if(!node){
+                return null;
+            }
+
             if(node.left){
                 return this.findPredecessor(node.left);
-            }else if(node.right){
-                return this.findPredecessor(node.right);
             }else{
                 return node;
             }
@@ -69,103 +71,37 @@ class BinarySearchTree implements IBinarySearchTree{
 
     }
 
-    delete(nodeToDelete: IBinaryNode, currentNode: IBinaryNode | null = this.root): any{
-        if(currentNode === null){
+    delete(nodeToDelete: IBinaryNode | null | undefined, currentNode: IBinaryNode | null = this.root): any{
+        if(!nodeToDelete || !currentNode){
             return null;
-        }
-
-        if(currentNode === nodeToDelete){
-            if(currentNode.left === null && currentNode.right === null){
-                // When the node has no children, simply remove it.
-                if(currentNode.parent){
-                    // Not root.
-                    if(currentNode.parent.left === currentNode){
-                        this.size--;
-                        currentNode.parent.left = null;
-                        return currentNode;
-                    }else if(currentNode.parent.right === currentNode){
-                        this.size--;
-                        currentNode.parent.right = null;
-                        return currentNode;
-                    }
-
-                }else{
-                    // Current node is root.
-                    this.size--;
-                    this.root = null;
-                    return currentNode;
-                }
-            }
-
-            if(currentNode.left && currentNode.right){
-                // When the node has two children.
-                let predecessor: IBinaryNode = this.findPredecessor(currentNode);
-
-                if(currentNode.parent){
-                    // Not root.
-
-                    // Remove previous reference to predecessor from its parent.
-                    if(predecessor.parent && predecessor.parent.left === predecessor){
-                        predecessor.parent.left = null;
-                    }else if(predecessor.parent && predecessor.parent.right === predecessor){
-                        predecessor.parent.right = null;
-                    }
-
-                    if(currentNode.parent.left === currentNode){
-                        currentNode.parent.left = predecessor;
-                        predecessor.parent = currentNode.parent;
-                        this.size--;
-                        return currentNode;
-                    }
-
-                    if(currentNode.parent.right === currentNode){
-                        currentNode.parent.right = predecessor;        
-                        predecessor.parent = currentNode.parent;
-                        this.size--;
-                        return currentNode;
-                    }
-                }else{
-                    // Current node id root.
-                    this.root = predecessor;
-                    predecessor.parent = null;
-                    this.size--;
-                    return currentNode;
-                }
-
-            }
-
-            if(currentNode.left || currentNode.right){
-                if(currentNode.parent){
-                    if(currentNode.left){
-                        if(currentNode.parent.left === currentNode){
-
-                        }
-                    }else if(currentNode.right){
-    
-                    }
-                }else{
-                    if(currentNode.left){
-                        this.size--;
-                        this.root = currentNode.left;
-                        currentNode.left.parent = null;
-                        return currentNode;
-                    }else if(currentNode.right){
-                        this.size--;
-                        this.root = currentNode.right;
-                        currentNode.right.parent = null;
-                        return currentNode;
-                    }
-                }
-            }
+        }else if(nodeToDelete.value < currentNode.value){
+            currentNode.left = this.delete(nodeToDelete, currentNode.left);
+            return currentNode;
+        }else if(nodeToDelete.value > currentNode.value){
+            currentNode.left = this.delete(nodeToDelete, currentNode.left);
+            return currentNode;
         }else{
-            if(currentNode.value > nodeToDelete.value){
-                return this.delete(nodeToDelete, currentNode.left);
-            }else if(currentNode.value <= nodeToDelete.value){
-                return this.delete(nodeToDelete, currentNode.left);
+            if(currentNode.left === null && currentNode.right === null){
+                currentNode = null;
+                return currentNode;
+            }
+
+            if(nodeToDelete.left === null){
+                currentNode = currentNode.right;
+                return currentNode;
+            }else if(nodeToDelete.right === null){
+                currentNode = currentNode.left;
+                return currentNode;
+            }
+
+
+            let aux = this.findPredecessor(currentNode.right);
+            if(aux){
+                currentNode.value = aux.value;
+                currentNode.right = this.delete(aux, currentNode.right);
+                return currentNode;
             }
         }
-
-        return null;
     }
 
 
@@ -204,11 +140,11 @@ export default function BinarySearchTreePage(){
     for(let i = 0; i < nodes.length; i++){
         binarySearchTree.insert(nodes[i]);
     }
+    
+    console.log(binarySearchTree.delete(binarySearchTree.root?.right, binarySearchTree.root));
 
-    
     binarySearchTree.inOrderTreeWalk();
-    
-   
+
     
 
     return (<div className="main-container">
